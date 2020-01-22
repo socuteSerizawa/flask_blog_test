@@ -31,3 +31,11 @@ def new_entry():
 		# ログインしてない時の処理
 		return redirect(url_for('login'))
 	return render_template('entries/new.html')
+
+@app.route('/entries/<int:id>', methods = ['GET'])
+def show_entry(id):
+	if not session.get('logged_in'):
+		# ログインしてない時の処理
+		return redirect(url_for('login'))
+	entry = Entry.query.get(id)
+	return render_template('entries/show.html', entry=entry)
